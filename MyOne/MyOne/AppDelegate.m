@@ -33,18 +33,22 @@
 	HomeViewController *homeViewController = [[HomeViewController alloc] init];
 	UINavigationController *homeNavigationController = [self dsNavigationController];
 	[homeNavigationController setViewControllers:@[homeViewController]];
+	
 	// 文章
 	ReadingViewController *readingViewController = [[ReadingViewController alloc] init];
 	UINavigationController *readingNavigationController = [self dsNavigationController];
 	[readingNavigationController setViewControllers:@[readingViewController]];
+	
 	// 问题
 	QuestionViewController *questionViewController = [[QuestionViewController alloc] init];
 	UINavigationController *questionNavigationController = [self dsNavigationController];
 	[questionNavigationController setViewControllers:@[questionViewController]];
+	
 	// 东西
 	ThingViewController *thingViewController = [[ThingViewController alloc] init];
 	UINavigationController *thingNavigationController = [self dsNavigationController];
 	[thingNavigationController setViewControllers:@[thingViewController]];
+	
 	// 个人
 	PersonViewController *personViewController = [[PersonViewController alloc] init];
 	UINavigationController *personNavigationController = [self dsNavigationController];
@@ -56,6 +60,7 @@
 	rootTabBarController.tabBar.backgroundColor = [UIColor clearColor];
 	
 	if ([AppConfigure boolForKey:APP_THEME_NIGHT_MODE]) {
+		NSLog(@"this is night mode");
 		[[DSNavigationBar appearance] setNavigationBarWithColor:NightNavigationBarColor];
 		
 		rootTabBarController.tabBar.backgroundImage = [self imageWithColor:[UIColor colorWithRed:48 / 255.0 green:48 / 255.0 blue:48 / 255.0 alpha:1]];
@@ -66,6 +71,7 @@
 		[DKNightVersionManager nightFalling];
 		self.window.backgroundColor = NightBGViewColor;
 	} else {
+		NSLog(@"this is daytime mode");
 		// create a color and set it to the DSNavigationBar appereance
 		[[DSNavigationBar appearance] setNavigationBarWithColor:DawnNavigationBarColor];
 		
@@ -113,12 +119,13 @@
 #pragma mark - NSNotification
 
 - (void)nightModeSwitch:(NSNotification *)notification {
+	NSLog(@"AppDelegate: nightModeSwitch: notification: %@", notification);
 	if (Is_Night_Mode) {
-//		NSLog(@"AppDelegate ---- Night Mode");
+		NSLog(@"AppDelegate ---- Night Mode");
 		[[DSNavigationBar appearance] setNavigationBarWithColor:NightNavigationBarColor];
 		self.window.backgroundColor = NightBGViewColor;
 	} else {
-//		NSLog(@"AppDelegate ---- Dawn Mode");
+		NSLog(@"AppDelegate ---- Dawn Mode");
 		[[DSNavigationBar appearance] setNavigationBarWithColor:DawnNavigationBarColor];
 		self.window.backgroundColor = [UIColor whiteColor];
 	}
