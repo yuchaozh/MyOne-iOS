@@ -40,11 +40,14 @@ static NSString *CellLogOutID = @"LogOutCell";
 	// 设置夜间模式背景色
 //	self.view.nightBackgroundColor = NightBGViewColor;
 	
+	// setup title view in navigation bar
 	[self setTitleView];
+	// setup settings table view
 	[self setUpViews];
 	
 	sectionHeaderTexts = @[@"浏览设置", @"缓存设置", @"更多", @""];
 	
+	// two diamensional array, array includes array
 	dataSource = @[@[@"夜间模式切换"],
 				   @[@"清除缓存"],
 				   @[@"去评分", @"反馈", @"用户协议", @"版本号"],
@@ -67,34 +70,58 @@ static NSString *CellLogOutID = @"LogOutCell";
 
 #pragma mark - Private
 
+/**
+ *  @author yuchaozh, 15-12-11 12:12:40
+ *
+ *  @brief  setup title view in navigation bar for settings table view
+ */
 - (void)setTitleView {
 	UILabel *titleLabel = [UILabel new];
 	titleLabel.text = @"设置";
 	titleLabel.textColor = TitleTextColor;
+	
+	// DKNightVersion library attribute
 	titleLabel.nightTextColor = TitleTextColor;
+	
 	titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:17];
 	[titleLabel sizeToFit];
 	self.navigationItem.titleView = titleLabel;
 }
 
+
+/**
+ *  @author yuchaozh, 15-12-11 12:12:40
+ *
+ *  @brief  setup settings table view
+ */
 - (void)setUpViews {
 	self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
 	// 不显示空 cell
 	self.tableView.tableFooterView = [[UIView alloc] init];
 	// 设置 cell 的行高，固定为 44
 	self.tableView.rowHeight = 44;
-	self.tableView.sectionFooterHeight = 0;
-	self.tableView.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0);
+	self.tableView.sectionFooterHeight = 10;
+	
+	// move table up 30
+	// if the table view is at a lower position, can use this to move it up
+	self.tableView.contentInset = UIEdgeInsetsMake(-30, 0, 0, 0);
+	
 	self.tableView.delegate = self;
 	self.tableView.dataSource = self;
+	
 	[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellHasSwitchID];
 	[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellHasDIID];
 	[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellHasSecondLabelID];
 	[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellLogOutID];
+	
+	// set table view background color
 	self.tableView.backgroundColor = DawnViewBGColor;
 	self.tableView.nightBackgroundColor = NightBGViewColor;
+	
+	// set table separator color
 	self.tableView.separatorColor = TableViewCellSeparatorDawnColor;
 	self.tableView.nightSeparatorColor = [UIColor blackColor];
+	
 	[self.view addSubview:self.tableView];
 }
 
@@ -130,6 +157,7 @@ static NSString *CellLogOutID = @"LogOutCell";
 			break;
 	}
 	
+	// assign table content first, then deal with different cell condition
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
 	cell.textLabel.text = dataSource[indexPath.section][indexPath.row];
 	cell.textLabel.textColor = [UIColor colorWithRed:128 / 255.0 green:127 / 255.0 blue:125 / 255.0 alpha:1];
@@ -137,14 +165,18 @@ static NSString *CellLogOutID = @"LogOutCell";
 	cell.textLabel.font = systemFont(17);
 	cell.textLabel.textAlignment = NSTextAlignmentLeft;
 	
+	// cell type, has > mark at right
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	
+	
+	// handle special situation for different cell, such as, add switch, add version number, hide disclosure indicator
 	if (indexPath.section == 0) {
 		UISwitch *nightModeSwitch = [[UISwitch alloc] init];
 		nightModeSwitch.on = [AppConfigure boolForKey:APP_THEME_NIGHT_MODE];
 		[nightModeSwitch addTarget:self action:@selector(nightModeSwitch:) forControlEvents:UIControlEventValueChanged];
+		// add switch to the cell
 		cell.accessoryView = nightModeSwitch;
-	} else if (indexPath.section == 2 && indexPath.row == 3) {
+	} else if (indexPath.section == 2 && indexPath.row == 3) {  // setup version
 		UILabel *versionLabel = [UILabel new];
 
 		NSDictionary *info= [[NSBundle mainBundle] infoDictionary];
@@ -159,6 +191,7 @@ static NSString *CellLogOutID = @"LogOutCell";
 		cell.accessoryView = versionLabel;
 	} else if (indexPath.section == 3) {// 退出当前账号
 		cell.textLabel.textAlignment = NSTextAlignmentCenter;
+		// no > mark at right
 		cell.accessoryType = UITableViewCellAccessoryNone;
 	}
 	
@@ -172,6 +205,17 @@ static NSString *CellLogOutID = @"LogOutCell";
 	return 35;
 }
 
+
+/**
+ *  @author yuchaozh, 15-12-11 15:12:47
+ *
+ *  @brief  setup settings table view sections
+ *
+ *  @param tableView settings table view
+ *  @param section   each section
+ *
+ *  @return settings table view
+ */
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 	UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 35)];
 	headerView.backgroundColor = [UIColor colorWithRed:235 / 255.0 green:235 / 255.0 blue:235 / 255.0 alpha:1];
@@ -194,6 +238,13 @@ static NSString *CellLogOutID = @"LogOutCell";
 
 #pragma mark - Touch Events
 
+/**
+ *  @author yuchaozh, 15-12-11 15:12:16
+ *
+ *  @brief  night mode switch action event
+ *
+ *  @param modeSwitch night mode switch
+ */
 - (void)nightModeSwitch:(UISwitch *)modeSwitch {
 	if (modeSwitch.isOn) {
 		[self.navigationController.navigationBar setBackgroundImage:[self imageWithColor:NightNavigationBarColor] forBarMetrics:UIBarMetricsDefault];
