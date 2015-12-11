@@ -57,13 +57,17 @@
 	rootTabBarController.viewControllers = @[homeNavigationController, readingNavigationController, questionNavigationController, thingNavigationController, personNavigationController];
 	rootTabBarController.tabBar.tintColor = [UIColor colorWithRed:55 / 255.0 green:196 / 255.0 blue:242 / 255.0 alpha:1];
 	rootTabBarController.tabBar.barTintColor = [UIColor colorWithRed:239 / 255.0 green:239 / 255.0 blue:239 / 255.0 alpha:1];
-	rootTabBarController.tabBar.backgroundColor = [UIColor clearColor];
+	// original code
+//	rootTabBarController.tabBar.backgroundColor = [UIColor clearColor];
+	// original code end
+	rootTabBarController.tabBar.backgroundColor = [UIColor colorWithRed:241 / 255.0 green:241 / 255.0 blue:241 / 255.0 alpha:1];
 	
 	if ([AppConfigure boolForKey:APP_THEME_NIGHT_MODE]) {
 		NSLog(@"this is night mode");
 		[[DSNavigationBar appearance] setNavigationBarWithColor:NightNavigationBarColor];
 		
-		rootTabBarController.tabBar.backgroundImage = [self imageWithColor:[UIColor colorWithRed:48 / 255.0 green:48 / 255.0 blue:48 / 255.0 alpha:1]];
+//		rootTabBarController.tabBar.backgroundImage = [self imageWithColor:[UIColor colorWithRed:48 / 255.0 green:48 / 255.0 blue:48 / 255.0 alpha:1]];
+		rootTabBarController.tabBar.backgroundColor = [UIColor colorWithRed:48 / 255.0 green:48 / 255.0 blue:48 / 255.0 alpha:1];
 		
 		// 设置状态栏的字体颜色为黑色
 		[application setStatusBarStyle:UIStatusBarStyleDefault];
@@ -75,7 +79,8 @@
 		// create a color and set it to the DSNavigationBar appereance
 		[[DSNavigationBar appearance] setNavigationBarWithColor:DawnNavigationBarColor];
 		
-		rootTabBarController.tabBar.backgroundImage = [self imageWithColor:[UIColor colorWithRed:241 / 255.0 green:241 / 255.0 blue:241 / 255.0 alpha:1]];
+//		rootTabBarController.tabBar.backgroundImage = [self imageWithColor:[UIColor colorWithRed:241 / 255.0 green:241 / 255.0 blue:241 / 255.0 alpha:1]];
+		rootTabBarController.tabBar.backgroundColor = [UIColor colorWithRed:241 / 255.0 green:241 / 255.0 blue:241 / 255.0 alpha:1];
 		
 		// 设置状态栏的字体颜色为黑色
 		[application setStatusBarStyle:UIStatusBarStyleDefault];

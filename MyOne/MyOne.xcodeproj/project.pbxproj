@@ -27,7 +27,7 @@
 		828F6D301B68E9A9007521F0 /* ReadingEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 828F6D2F1B68E9A9007521F0 /* ReadingEntity.m */; };
 		828F6D331B68E9BE007521F0 /* QuestionEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 828F6D321B68E9BE007521F0 /* QuestionEntity.m */; };
 		828F6D361B68E9CF007521F0 /* ThingEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 828F6D351B68E9CF007521F0 /* ThingEntity.m */; };
-		829059441BCE348200084E7E /* TopWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 829059431BCE348200084E7E /* TopWindow.m */; settings = {ASSET_TAGS = (); }; };
+		829059441BCE348200084E7E /* TopWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 829059431BCE348200084E7E /* TopWindow.m */; };
 		82A726951B6DB60000348EAC /* ThingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A726941B6DB60000348EAC /* ThingView.m */; };
 		82A726981B6DC0BE00348EAC /* QuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A726971B6DC0BE00348EAC /* QuestionView.m */; };
 		82A7269B1B6DF10F00348EAC /* PraiseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82A7269A1B6DF10F00348EAC /* PraiseView.m */; };
@@ -387,6 +387,7 @@
 				8269D2791B65DC5C0041AE0B /* Frameworks */,
 				8269D27A1B65DC5C0041AE0B /* Resources */,
 				15D8936F3E8473A8FDB7A106 /* Copy Pods Resources */,
+				C96984FF1C1B435F00687394 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -495,6 +496,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		C96984FF1C1B435F00687394 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "REV=`git rev-list HEAD | wc -l | awk '{print $1}'`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion ${REV}\" \"${TARGET_BUILD_DIR}\"/${INFOPLIST_PATH}";
 		};
 		E31ECC4C88FD6D2A8CF7694C /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

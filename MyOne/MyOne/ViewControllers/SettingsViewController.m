@@ -146,8 +146,12 @@ static NSString *CellLogOutID = @"LogOutCell";
 		cell.accessoryView = nightModeSwitch;
 	} else if (indexPath.section == 2 && indexPath.row == 3) {
 		UILabel *versionLabel = [UILabel new];
-		NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-		versionLabel.text = version;
+
+		NSDictionary *info= [[NSBundle mainBundle] infoDictionary];
+		NSString *version = info[@"CFBundleShortVersionString"]; //Version
+		NSString *build = info[@"CFBundleVersion"]; // Build
+		versionLabel.text = [NSString stringWithFormat:@"%@(%@)",version,build];
+		
 		versionLabel.textColor = [UIColor colorWithRed:135 / 255.0 green:135 / 255.0 blue:135 / 255.0 alpha:1];
 		versionLabel.nightTextColor = NightTextColor;
 		versionLabel.font = systemFont(17);
