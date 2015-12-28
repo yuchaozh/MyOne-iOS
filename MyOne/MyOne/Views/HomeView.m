@@ -51,7 +51,9 @@
 	self.nightBackgroundColor = NightBGViewColor;
 	// 初始化 ScrollView
 	self.scrollView = [UIScrollView new];
+	// show vertical scroll bar in the right
 	self.scrollView.showsVerticalScrollIndicator = YES;
+	// hide horizontal scroll bar
 	self.scrollView.showsHorizontalScrollIndicator = NO;
 	self.scrollView.alwaysBounceVertical = YES;
 	self.scrollView.tag = ScrollViewTag;
@@ -107,6 +109,7 @@
 	self.paintNameLabel.textColor = PaintInfoTextColor;
 	self.paintNameLabel.nightTextColor = PaintInfoTextColor;
 	self.paintNameLabel.font = systemFont(12);
+	// all above is align to left, but this is align to right
 	self.paintNameLabel.textAlignment = NSTextAlignmentRight;
 	[self.containerView addSubview:self.paintNameLabel];
 	[self.paintNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -120,6 +123,7 @@
 	self.paintAuthorLabel.textColor = PaintInfoTextColor;
 	self.paintAuthorLabel.nightTextColor = PaintInfoTextColor;
 	self.paintAuthorLabel.font = systemFont(12);
+	// align to right
 	self.paintAuthorLabel.textAlignment = NSTextAlignmentRight;
 	[self.containerView addSubview:self.paintAuthorLabel];
 	[self.paintAuthorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -136,6 +140,7 @@
 	self.dayLabel.nightBackgroundColor = NightBGViewColor;
 	self.dayLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:43];
 	self.dayLabel.textAlignment = NSTextAlignmentCenter;
+	//阴影大小和颜色
 	self.dayLabel.shadowOffset = CGSizeMake(1, 1);
 	self.dayLabel.shadowColor = [UIColor whiteColor];
 	[self.containerView addSubview:self.dayLabel];
@@ -272,13 +277,13 @@
 	
 	[self.praiseNumberBtn setTitle:[NSString stringWithFormat:@"  %@", homeEntity.strPn] forState:UIControlStateNormal];
 	[self.praiseNumberBtn sizeToFit];
-
+	
 	self.scrollView.contentSize = CGSizeMake(0, CGRectGetHeight(self.containerView.frame));
 }
 
 - (void)refreshSubviewsForNewItem {
 	self.volLabel.text = @"";
-//	self.paintImageView.image = nil;
+	//	self.paintImageView.image = nil;
 	self.paintNameLabel.text = @"";
 	self.paintAuthorLabel.text = @"";
 	self.dayLabel.text = @"";
@@ -303,11 +308,11 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 @end
